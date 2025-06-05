@@ -1,140 +1,306 @@
-<img src="./.github/screenshots/header.png#gh-light-mode-only" width="100%" alt="Header light mode"/>
-<img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="Header dark mode"/>
+# Chatwoot - Local Setup & Development Guide
 
-___
-
-# Chatwoot
-
-The modern customer support platform, an open-source alternative to Intercom, Zendesk, Salesforce Service Cloud etc.
-
-<p>
-  <a href="https://codeclimate.com/github/chatwoot/chatwoot/maintainability"><img src="https://api.codeclimate.com/v1/badges/e6e3f66332c91e5a4c0c/maintainability" alt="Maintainability"></a>
-  <img src="https://img.shields.io/circleci/build/github/chatwoot/chatwoot" alt="CircleCI Badge">
-    <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/pulls/chatwoot/chatwoot" alt="Docker Pull Badge"></a>
-  <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/cloud/build/chatwoot/chatwoot" alt="Docker Build Badge"></a>
-  <img src="https://img.shields.io/github/commit-activity/m/chatwoot/chatwoot" alt="Commits-per-month">
-  <a title="Crowdin" target="_self" href="https://chatwoot.crowdin.com/chatwoot"><img src="https://badges.crowdin.net/e/37ced7eba411064bd792feb3b7a28b16/localized.svg"></a>
-  <a href="https://discord.gg/cJXdrwS"><img src="https://img.shields.io/discord/647412545203994635" alt="Discord"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fuptime.json" alt="uptime"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fresponse-time.json" alt="response time"></a>
-  <a href="https://artifacthub.io/packages/helm/chatwoot/chatwoot"><img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/artifact-hub" alt="Artifact HUB"></a>
-</p>
-
-
-<p>
-  <a href="https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master" alt="Deploy to Heroku">
-     <img width="150" alt="Deploy" src="https://www.herokucdn.com/deploy/button.svg"/>
-  </a>
-  <a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-     <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-  </a>
-</p>
-
-<img src="./.github/screenshots/dashboard.png#gh-light-mode-only" width="100%" alt="Chat dashboard dark mode"/>
-<img src="./.github/screenshots/dashboard-dark.png#gh-dark-mode-only" width="100%" alt="Chat dashboard"/>
+This document covers how to fully set up the Chatwoot project locally — including prerequisites, environment setup, common issues we encountered, and how to solve them.
 
 ---
 
-Chatwoot is the modern, open-source, and self-hosted customer support platform designed to help businesses deliver exceptional customer support experience. Built for scale and flexibility, Chatwoot gives you full control over your customer data while providing powerful tools to manage conversations across channels.
+## 🖥️ Prerequisites
 
-### ✨ Captain – AI Agent for Support
+Before starting, ensure the following tools are installed on your system:
 
-Supercharge your support with Captain, Chatwoot’s AI agent. Captain helps automate responses, handle common queries, and reduce agent workload—ensuring customers get instant, accurate answers. With Captain, your team can focus on complex conversations while routine questions are resolved automatically. Read more about Captain [here](https://chwt.app/captain-docs).
+---
 
-### 💬 Omnichannel Support Desk
+### 1️⃣ Docker Desktop
 
-Chatwoot centralizes all customer conversations into one powerful inbox, no matter where your customers reach out from. It supports live chat on your website, email, Facebook, Instagram, Twitter, WhatsApp, Telegram, Line, SMS etc.
+Required to run Chatwoot services in containers.
 
-### 📚 Help center portal
+📥 Download: https://www.docker.com/products/docker-desktop
 
-Publish help articles, FAQs, and guides through the built-in Help Center Portal. Enable customers to find answers on their own, reduce repetitive queries, and keep your support team focused on more complex issues.
+Install and launch Docker Desktop — you should see the whale icon in your menu bar.
 
-### 🗂️ Other features
+Check version:
 
-#### Collaboration & Productivity
+```bash
+docker --version
+docker compose version
+```
 
-- Private Notes and @mentions for internal team discussions.
-- Labels to organize and categorize conversations.
-- Keyboard Shortcuts and a Command Bar for quick navigation.
-- Canned Responses to reply faster to frequently asked questions.
-- Auto-Assignment to route conversations based on agent availability.
-- Multi-lingual Support to serve customers in multiple languages.
-- Custom Views and Filters for better inbox organization.
-- Business Hours and Auto-Responders to manage response expectations.
-- Teams and Automation tools for scaling support workflows.
-- Agent Capacity Management to balance workload across the team.
+---
 
-#### Customer Data & Segmentation
-- Contact Management with profiles and interaction history.
-- Contact Segments and Notes for targeted communication.
-- Campaigns to proactively engage customers.
-- Custom Attributes for storing additional customer data.
-- Pre-Chat Forms to collect user information before starting conversations.
+### 2️⃣ Git
 
-#### Integrations
-- Slack Integration to manage conversations directly from Slack.
-- Dialogflow Integration for chatbot automation.
-- Dashboard Apps to embed internal tools within Chatwoot.
-- Shopify Integration to view and manage customer orders right within Chatwoot.
-- Use Google Translate to translate messages from your customers in realtime.
-- Create and manage Linear tickets within Chatwoot.
+Required to clone the Chatwoot repository.
 
-#### Reports & Insights
-- Live View of ongoing conversations for real-time monitoring.
-- Conversation, Agent, Inbox, Label, and Team Reports for operational visibility.
-- CSAT Reports to measure customer satisfaction.
-- Downloadable Reports for offline analysis and reporting.
+📥 Download: https://git-scm.com/downloads
 
+macOS:  
+Git usually comes pre-installed. Check:
 
-## Documentation
+```bash
+git --version
+```
 
-Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
+If not installed:
 
-## Translation process
+```bash
+brew install git
+```
 
-The translation process for Chatwoot web and mobile app is managed at [https://translate.chatwoot.com](https://translate.chatwoot.com) using Crowdin. Please read the [translation guide](https://www.chatwoot.com/docs/contributing/translating-chatwoot-to-your-language) for contributing to Chatwoot.
+---
 
-## Branching model
+### 3️⃣ (Optional) rbenv + Ruby
 
-We use the [git-flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model. The base branch is `develop`.
-If you are looking for a stable version, please use the `master` or tags labelled as `v1.x.x`.
+This is not required if using Docker only — but helpful if running Rails directly for debugging.
 
-## Deployment
+Install Homebrew first if not installed:
 
-### Heroku one-click deploy
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-Deploying Chatwoot to Heroku is a breeze. It's as simple as clicking this button:
+Then install rbenv + ruby-build:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master)
+```bash
+brew install rbenv ruby-build
+rbenv init
+```
 
-Follow this [link](https://www.chatwoot.com/docs/environment-variables) to understand setting the correct environment variables for the app to work with all the features. There might be breakages if you do not set the relevant environment variables.
+Verify rbenv:
 
+```bash
+rbenv --version
+```
 
-### DigitalOcean 1-Click Kubernetes deployment
+Install Ruby 3.4.4:
 
-Chatwoot now supports 1-Click deployment to DigitalOcean as a kubernetes app.
+```bash
+rbenv install 3.4.4
+rbenv global 3.4.4
+ruby --version
+```
 
-<a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-  <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-</a>
+---
 
-### Other deployment options
+### 4️⃣ Postgres (via Docker)
 
-For other supported options, checkout our [deployment page](https://chatwoot.com/deploy).
+Postgres will be provided by the docker-compose.yaml — no need to install Postgres manually!
 
-## Security
+---
 
-Looking to report a vulnerability? Please refer our [SECURITY.md](./SECURITY.md) file.
+#### Summary of Prerequisites:
 
-## Community
+✅ Docker Desktop  
+✅ Docker Compose (comes with Docker Desktop)  
+✅ Git  
+✅ (Optional) rbenv + Ruby
 
-If you need help or just want to hang out, come, say hi on our [Discord](https://discord.gg/cJXdrwS) server.
+---
 
-## Contributors
+## 🖥️ Frontend Notes
 
-Thanks goes to all these [wonderful people](https://www.chatwoot.com/docs/contributors):
+- Chatwoot uses Vite for the frontend (Vue/JavaScript).
+- The frontend code is included in this monorepo—no separate clone or setup is required.
+- When you run `docker compose up`, the `vite` service (frontend dev server) automatically starts on port 3036.
+- The Rails backend proxies all frontend requests, so you only need to visit [http://localhost:3000](http://localhost:3000) to use the full application (both backend and frontend).
 
-<a href="https://github.com/chatwoot/chatwoot/graphs/contributors"><img src="https://opencollective.com/chatwoot/contributors.svg?width=890&button=false" /></a>
+---
 
+## 🚀 Project Setup
 
-*Chatwoot* &copy; 2017-2025, Chatwoot Inc - Released under the MIT License.
+### 1️⃣ Clone the Repository
+
+Fork the original repo on GitHub and clone your fork:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/chatwoot.git
+cd chatwoot
+```
+
+---
+
+### 2️⃣ Environment Variables
+
+Copy the sample env file and edit as needed:
+
+```bash
+cp .env.example .env
+```
+
+👉 **Important:**  
+In `.env`, set `POSTGRES_PASSWORD` (do not leave it blank):
+
+```
+POSTGRES_PASSWORD=your_strong_password
+```
+
+---
+
+### 3️⃣ Build & Start the Containers
+
+```bash
+docker compose build
+docker compose up
+```
+
+---
+
+### 4️⃣ Initialize the Database
+
+In a new terminal window:
+
+```bash
+docker compose exec rails bin/rails db:create
+docker compose exec rails bin/rails db:migrate
+```
+
+---
+
+### 5️⃣ Create Admin User for Login
+
+Enter Rails console:
+
+```bash
+docker compose exec rails bin/rails console
+```
+
+Then run:
+
+```ruby
+user = User.create!(
+  email: 'admin@example.com',
+  password: 'YourStrongPassword1!',
+  password_confirmation: 'YourStrongPassword1!',
+  name: 'Admin User',
+  confirmed_at: Time.now
+)
+```
+
+---
+
+### 6️⃣ Access the Application
+
+Visit: [http://localhost:3000](http://localhost:3000)
+
+Login using the admin user you just created.
+
+---
+
+## 🧪 Testing
+
+### Backend (Rails) Tests
+
+Run in a separate terminal:
+
+```bash
+docker compose exec rails bundle exec rspec
+```
+
+**Notes:**
+- You may see sendmail connection errors — this is expected if Mailhog is not running in test mode.
+- These errors do not block the test run. You can ignore them unless you specifically configure Mailhog for test.
+
+---
+
+## 🛠️ Testing Core Functionality
+
+- Login as admin
+- Create inboxes, contacts, and conversations
+- Send test messages
+- Explore Settings & Automation features
+
+---
+
+## 🐞 Troubleshooting / Issues We Faced
+
+### ❌ 1. could not translate host name "postgres"
+
+**Cause:** The Rails app couldn’t connect to Postgres because Postgres wasn’t ready yet.
+
+**Solution:**  
+Use `docker compose exec` instead of `docker compose run`, so Rails connects to already running Postgres:
+
+```bash
+docker compose exec rails bin/rails db:create
+docker compose exec rails bin/rails db:migrate
+```
+
+---
+
+### ❌ 2. pg_isready - no response
+
+**Cause:** Postgres takes time to start on first run.
+
+**Solution:**  
+Just re-run the exec commands after a few seconds — Postgres will eventually be ready.
+
+---
+
+### ❌ 3. Password validation errors when creating User
+
+**Cause:** Chatwoot enforces strong password rules.
+
+**Solution:**  
+Use a password that includes:
+- At least 1 uppercase letter
+- At least 1 number
+- At least 1 special character
+
+---
+
+### ❌ 4. ActiveModel::UnknownAttributeError: unknown attribute 'role' for User
+
+**Cause:** `role` attribute was removed in latest Chatwoot — use administrator through account permissions.
+
+**Solution:**  
+Omit `role:` field and just set:
+
+```ruby
+confirmed_at: Time.now
+```
+
+---
+
+## ⚡ Useful Commands
+
+- **Start containers:**
+  ```bash
+  docker compose up
+  ```
+- **Stop containers:**
+  ```bash
+  docker compose down
+  ```
+- **Rails console:**
+  ```bash
+  docker compose exec rails bin/rails console
+  ```
+- **Create DB:**
+  ```bash
+  docker compose exec rails bin/rails db:create
+  ```
+- **Run migrations:**
+  ```bash
+  docker compose exec rails bin/rails db:migrate
+  ```
+
+---
+
+## ✅ Summary
+
+By following this guide, you should now have:
+
+✅ All prerequisites installed  
+✅ Chatwoot running locally via Docker Compose  
+✅ Database created and migrated  
+✅ Admin user created  
+✅ Able to login and test core functionality
+
+---
+
+## 📌 Notes
+
+- We intentionally provided strong password in `.env` — do not leave `POSTGRES_PASSWORD` blank.
+- You can rerun `docker compose up` anytime — database and volumes will persist.
+- If migrations fail on first try (due to Postgres not ready), just run again after a few seconds.
+
+---
